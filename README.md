@@ -1,9 +1,9 @@
-# T# Gallery
+# T3 Gallery
 
 ## TODO
 
-- [ ] Make it deploy (Vercel)
-- [ ] Scaffold basic UI with mock data
+- [x] Make it deploy (Vercel)
+- [x] Scaffold basic UI with mock data
 - [ ] Set up Database (Vercel postgres)
 - [ ] Attach databse to UI
 - [ ] Add Authentication (Clerk)
