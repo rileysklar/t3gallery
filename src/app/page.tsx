@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { mock } from "node:test";
-
+import db from "src/server/db";
 const mockUrls = [
   "https://utfs.io/f/b94dec0c-d01d-4715-a914-2532c3f316b9-rhxw1r.jpg",
-  "https://utfs.io/f/23b7eabb-64ec-483c-8e63-fa49406da05b-rhxw1s.jpg",
-  "https://utfs.io/f/879ef0c2-5264-42ed-b794-78234f37dd82-rhxw1p.jpg",
 ];
 
 const mockImages = mockUrls.map((url, index) => ({
@@ -12,13 +10,20 @@ const mockImages = mockUrls.map((url, index) => ({
   url,
 }));
 
-export default function HomePage() {
+export default async function HomePage() {
+  const posts = await db.query.posts.findMany();
+
+  console.log(posts);
+
   return (
-    <main className="">
-      <div className="flex flex-wrap gap-4">
-        {[...mockImages, ...mockImages, ...mockImages].map((image) => (
-          <div key={image.id} className="w-48">
-            <img src={image.url} />
+    <main className="flex flex-col items-center gap-4">
+      <div className="flex flex-wrap gap-y-4">
+        {posts.map((post) => (
+          <div key={post.id}>{post.name}</div>
+        ))}
+        {[...mockImages, ...mockImages, ...mockImages].map((image, index) => (
+          <div key={image.id + "-" + index} className="w-48 px-2">
+            <img src={image.url} className="rounded-md" />
           </div>
         ))}
       </div>
